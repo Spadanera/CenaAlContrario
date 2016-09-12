@@ -1,0 +1,99 @@
+﻿<style>
+    .md-dialog-content {
+        position: relative;
+    }
+
+    #selected-cena {
+        max-width: 100%;
+        width: 670px;
+    }
+
+    #selected-cena {
+        background-image: url('/Content/Images/lobster.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    #selected-cena h3 {
+        margin-top: 0 !important;
+    }
+
+        #selected-cena > md-dialog-content > .md-dialog-content {
+            display: flex;
+        }
+
+
+    @media screen and (min-width: 761px) {
+        #selected-cena > md-dialog-content > .md-dialog-content {
+            flex-flow: row;
+        }
+    }
+
+    @media screen and (max-width: 760px) {
+        #selected-cena > md-dialog-content > .md-dialog-content {
+            flex-flow: column;
+        }
+
+        #cenaPortatas {
+            margin-top: 20px;
+        }
+    }
+
+    .portata-selected-cena {
+        margin-bottom: 10px;
+    }
+
+        .portata-selected-cena > md-divider {
+            margin-top: 10px !important;
+        }
+
+    #cenaMain {
+        flex: 1;
+    }
+
+    #cenaMain > span {
+        font-size: large;
+    }
+
+    #cenaPortatas {
+        flex: 1;
+    }
+
+    #cenaPortatas > div {
+        font-size: large;
+    }
+
+    #selected-cena > md-dialog-actions {
+        border-top: solid 0.3px gray;
+    }
+</style>
+<md-dialog id="selected-cena" aria-label="Storia" ng-cloak>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div ng-click="closeDialog()" class="delete-portata">
+                <md-icon md-svg-icon="/Content/angular-material-icons/close16.svg">
+                </md-icon>
+            </div>
+            <div id="cenaMain">
+                <h3>Dati generali</h3>
+                Nome: <span>{{selectedCena.Nome}}</span><br />
+                Locale: <span>{{selectedCena.Locale}}</span><br />
+                Località: <span>{{selectedCena.Localita}}</span><br />
+                Anno: <span>{{selectedCena.Anno}}</span><br />
+                Partecipanti: <span>{{selectedCena.NumeroPartecipanti}}</span>
+            </div>
+            <div id="cenaPortatas">
+                <h3>Menu</h3>
+                <div class="portata-selected-cena" ng-repeat="portata in selectedCena.Portatas">
+                    {{portata.Ordine}}° - {{portata.Piatto}}
+                    <md-divider ng-if="!$last"></md-divider>
+                </div>
+            </div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="closeDialog()" style="margin-right:20px;">
+            Chiudi
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

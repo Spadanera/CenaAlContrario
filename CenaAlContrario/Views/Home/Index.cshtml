@@ -1,0 +1,145 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Cena al contrario</title>
+    <link rel="stylesheet" href="~/Content/angular-material.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body ng-app="Cena" ng-controller="CenaController" ng-cloak>
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/angular-animate.js"></script>
+    <script src="~/Scripts/angular-aria.js"></script>
+    <script src="~/Scripts/angular-messages.js"></script>
+    <script src="~/Scripts/angular-material/angular-material.js"></script>
+    <script src="~/Scripts/angularjs-scroll-glue.js"></script>
+    <script src="~/Scripts/ngStorage.js"></script>
+    <script src="~/Scripts/jquery-3.1.0.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/Model/Cena.js"></script>
+    <script>
+        var app = angular.module('Cena', ['ngMaterial', 'luegg.directives', 'ngStorage']);
+        app.directive("scroll", function ($window) {
+            return function (scope, element, attrs) {
+                angular.element(element).bind("scroll", function () {
+                    if ($(this).scrollTop() > 0)
+                        scope.toolbarClass = 'closed';
+                    else
+                        scope.toolbarClass = 'opened';
+                    scope.$apply();
+                });
+            };
+        });
+    </script>
+    <script src="~/Scripts/Controller/CenaController.js"></script>
+
+    <div id="cover" ng-class="insertFormClass" ng-click="toggleInsertForm()"></div>
+
+    <div id="toolbar" ng-class="toolbarClass">
+        <md-toolbar class="">
+            <div class="md-toolbar-tools">
+                <md-button ng-click="toggleInsertForm()" class="md-icon-button icon-mobile" aria-label="Inserisci nuova cena">
+                    <md-tooltip md-direction="bottom">
+                        Apri form inserimento
+                    </md-tooltip>
+                    <md-icon md-svg-icon="/Content/angular-material-icons/menu.svg"></md-icon>
+                </md-button>
+                <h2>
+                    <span class="md-headline">CENA AL CONTRARIO</span>
+                </h2>
+                <span flex></span>
+                <md-button id="openStory" ng-click="showStory()" class="md-icon-button" aria-label="Storia">
+                    <md-tooltip md-direction="bottom">
+                        Leggi la storia
+                    </md-tooltip>
+                    <md-icon md-svg-icon="/Content/angular-material-icons/info.svg">
+                    </md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+    </div>
+    <div id="content" ng-class="toolbarClass">
+        <aside ng-class="insertFormClass">
+            <header>
+                <h3>Inserisci nuova cena</h3>
+                <md-button ng-click="toggleInsertForm()" class="md-icon-button icon-mobile" aria-label="Storia">
+                    <md-icon md-svg-icon="/Content/angular-material-icons/reply.svg">
+                    </md-icon>
+                </md-button>
+            </header>
+            <content scroll-glue="scrollForm">
+                <form id="insertForm">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Nome</label>
+                        <input required ng-model="newCena.Nome">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Località</label>
+                        <input required ng-model="newCena.Localita">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Locale</label>
+                        <input required ng-model="newCena.Locale">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Anno</label>
+                        <input required min="2007" max="2016" type="number" ng-model="newCena.Anno">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Numero partecipanti</label>
+                        <input required min="1" type="number" ng-model="newCena.NumeroPartecipanti">
+                    </md-input-container>
+                    <div draggable="true" ng-repeat="portata in newCena.Portatas">
+                        <h4>{{portata.Ordine}}° Portata</h4>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Piatto</label>
+                            <input required ng-model="portata.Piatto">
+                        </md-input-container>
+                        <div ng-click="deletePortata('{{portata.Ordine}}')" class="delete-portata">
+                            <md-icon md-svg-icon="/Content/angular-material-icons/close16.svg"></md-icon>
+                        </div>
+                    </div>
+                    <input type="reset" value="reset" hidden id="resetForm" />
+                    <md-button ng-click="addPortata()" class="md-raised">Aggiungi portata</md-button>
+                </form>
+            </content>
+            <footer>
+                <md-button ng-click="resetCena()" class="md-raised">Pulisci</md-button>
+                <md-button ng-click="insertCena()" class="md-raised">Inserisci</md-button>
+            </footer>
+        </aside>
+        <section scroll>
+                <article ng-repeat="cena in cene | orderBy: ['-Anno','-DataInserimento']  track by cena.CenaId"
+                         class="card"
+                         ng-click="openCena(cena.CenaId)">
+                    <div ng-show="{{cena.OwnedByUser}}" ng-click="deleteCena(cena.CenaId); $event.stopPropagation();" class="delete-portata">
+                        <md-icon md-svg-icon="/Content/angular-material-icons/close16.svg">
+                            <md-tooltip md-direction="top">
+                                Elimina
+                            </md-tooltip>
+                        </md-icon>
+                    </div>
+                    <header class="md-display-1">
+                        {{cena.Nome}}
+                    </header>
+                    <content>
+                        Presso:
+                        <br />
+                        <span class="md-headline">{{cena.Locale}}</span>
+                    </content>
+                    <footer class="md-caption">
+                        {{cena.Anno}} - {{cena.Localita}}
+                    </footer>
+                </article>
+        </section>
+    </div>
+</body>
+</html>

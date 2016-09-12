@@ -1,0 +1,53 @@
+﻿<style>
+    .md-dialog-content > img {
+        width: 100%;
+        max-width: 750px;
+    }
+
+    .md-dialog-content > h3 {
+        margin-top: 0;
+    }
+</style>
+<md-dialog aria-label="Storia" ng-cloak>
+    <md-toolbar>
+        <div style="background-color: rgb(0, 192, 255);" class="md-toolbar-tools">
+            <h2>Origini della tradizione</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="closeDialog()">
+                <md-icon md-svg-src="/Content/angular-material-icons/close16.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <h3>Come nasce la CENA AL CONTRARIO di Ferragosto?</h3>
+            <p>
+                Quattro ventenni e un Opel Astra; road trip Milano – Portogallo; estate 2007<br /><br />
+
+                Stasera facciamo qualcosa di particolare? – Peché? – è Ferragosto! – Quindi? – Boh non so, facciamo qualcosa di particolare! – Di solito si fanno i falò in spiaggia, ma qui ci sono 5 gradi – Non so nemmeno se in Portogallo lo festeggiano il Ferragosto! – Eccheppalle! Dai, usciamo a cena e poi qualcosa ci verrà in mente. - Potremmo inventarci qualcosa di semplice da fare ogni anno così da ricordarci di questa vacanza – questa è un’idea!
+                <br />
+                …
+                <br />
+                Ragazzi, ci sono – Oddio – Spara
+                <br />[segue bisbiglio con descrizione del piano d’attacco]
+                <br />ci sto – anch’io – andata!
+                <br />Ma secondo voi ce lo fan fare? – Boh, proviamo. Al massimo ci ridono in faccia.
+                <br />…
+                <br />Buonasera. Un tavolo per quattro.
+                <br />Prima di inziare  avremmo una richiesta un po’ strana da fare [sguardo perplesso del cameriere] in Italia il 15 di agosto si festeggia… ecco, è usanza… in pratica… [sguardo perplesso del cameriere] si, insomma, per celebrare l’amicizia festeggiamo con una cena al contrario! Si parte dal caffè fino ad arrivare all’aperitivo [sguardo molto perplesso: torno subito].
+                <br />Mo ci tirano una secchiata d’acqua, Che supercazzola ti sei inventato? – E come potevo spiegarlo a un olandese che ha un ristorante in Portogallo?
+                <br />[il cameriere torna con una donna – probabilmente la proprietaria – che ci accoglie con un sorriso a trentadue denti: sono molto curiosa, raccontatemi un po’. E nel frattempo preparate gli amari e il caffè da portare ai ragazzi!]
+            </p>
+            <img src="/Content/Images/Cena.JPG" alt="Foto con i ristoratori" />    
+            <p>    
+                <br />Ecco, più o  meno è andata così: con la scusa di fare una cazzata da ripetere ogni anno per ricordarci del viaggio in Portogallo – 6000km su un’Astra, ci siamo inventati una ricorrenza nazionale! È dal 2007 che la ripetiamo tutti gli anni, anche se non c’è più stata occasione di farlo tutti e quattro mangiando e bevendo seduti allo stesso tavolo! Ogni anno però non manca il messaggio, con tanto di menù e fotografie.
+                <br />È nata per gioco, ma celebriamo davvero la nostra amicizia!
+            </p>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="closeDialog()" style="margin-right:20px;">
+            Chiudi
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>
